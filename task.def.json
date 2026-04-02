@@ -1,0 +1,32 @@
+{
+  "family": "backend-task",
+  "networkMode": "awsvpc",
+  "requiresCompatibilities": ["FARGATE"],
+  "cpu": "256",
+  "memory": "512",
+  "executionRoleArn": "arn:aws:iam::951125265291:role/ecsTaskExecutionRole",
+  "containerDefinitions": [
+    {
+      "name": "backend",
+      "image": "951125265291.dkr.ecr.eu-central-1.amazonaws.com/backend",
+      "portMappings": [
+        {
+          "containerPort": 8000,
+          "protocol": "tcp"
+        }
+      ],
+      "essential": true,
+      "environment": [
+        { "name": "ENVIRONMENT", "value": "production" },
+        { "name": "SECRET_KEY", "value": "mysecret123" },
+        { "name": "FIRST_SUPERUSER", "value": "admin@example.com" },
+        { "name": "FIRST_SUPERUSER_PASSWORD", "value": "admin123" },
+
+        { "name": "POSTGRES_SERVER", "value": "database-1.cv0q6cgi2sq1.eu-central-1.rds.amazonaws.com"  },
+        { "name": "POSTGRES_USER", "value": "postgres" },
+        { "name": "POSTGRES_PASSWORD", "value": "postgres" },
+        { "name": "POSTGRES_DB", "value": "app" }
+      ]
+    }
+  ]
+}
